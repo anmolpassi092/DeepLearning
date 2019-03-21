@@ -10,12 +10,12 @@ Given masses, intial positions and initial velocites of 100 particles, you are r
 
 Tested on Ubuntu 18.04 with:   
 
-```  
-  jupyter notebook: 4.4.0  
-  numpy: 1.16.2  
-  python: 3.6.7  
-  tensorflow: 1.13.1  
-  tornado: 6.0  
+```
+  * jupyter notebook: 4.4.0  
+  * numpy: 1.16.2  
+  * python: 3.6.7  
+  * tensorflow: 1.13.1  
+  * tornado: 6.0  
 ```
 
 ## Running and understanding the code
@@ -30,7 +30,7 @@ velo = np.load('q2_input/velocities.npy')
 ```
 The computational graph is then prepared using the above as initial variable.
 
-```
+```python
 # create graph  
 graph = tf.get_default_graph()  
 with graph.as_default():  
@@ -48,7 +48,7 @@ After this, the tensor variables are manipulated according to Newton's laws of m
 To write the graph summary in logs to have a visual representation in Tensorboard below code is used:  
 At very top to include timestamp in log directory name
 
-```
+```python
 from datetime import datetime
 
 now = datetime.utcnow().strftime("%Y%m%d%H%M%S")
@@ -58,9 +58,17 @@ logdir = "{}/run-{}/".format(root_logdir, now)
 
 And just after the computational graph is construceted
 
-```
+```python
 summary = tf.summary.scalar('v', v)
 file_writer = tf.summary.FileWriter(logdir, tf.get_default_graph())
 ```
 
 There is a session loop and the final output is stored in the end.
+
+## Running Tensorboard
+In terminal go to directory in which "tf_logs" directory resides and run the following command
+```
+$ tensorboard --logdir tf_logs/
+```
+This will open and show the graph as shown in this [png](https://github.com/rajanbajaj/CS671_Deep_Learning/blob/master/Assignment1/question2/computational_graph_tensorboard.png)
+file.
